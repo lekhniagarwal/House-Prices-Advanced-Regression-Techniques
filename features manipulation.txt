@@ -1,0 +1,393 @@
+MSSubClass - as it is
+MSZoning- 
+A-40
+C-60
+FV-50
+I-20
+RH-70
+RL-90
+RP-100
+RM-80
+
+
+LotFrontage - train["LonFrontage"].fillna(train["LonFrontage"].mean())
+
+LotArea -as it is
+
+Street = 
+Gravel - 20
+Paved - 40
+
+
+Alley =
+Gravel - 20
+Paved - 40
+NA - 0
+
+LotShape =
+Reg	50	
+IR1	40
+IR2	30
+IR3	20
+
+LandContour=
+Lvl - 40
+Bnk - 30
+HLS  - 20
+Low -10
+
+
+Utilities: 
+		
+       AllPub	50	
+       NoSewr	40
+       NoSeWa	30
+       ELO	20
+
+LotConfig =
+
+
+
+LandSlope=
+Gtl - 15
+Mod -10
+Sev - 5
+
+
+Neighborhood=
+
+
+Condition1=
+
+Cnodition2=
+
+
+BldgType =
+1Fam - 10
+2FmCon -20
+Duplex-30
+TwnhsE-40
+Twnhs-50
+
+
+HouseStyle= 
+ 1Story	10
+ 1.5Fin	20
+ 1.5Unf	30
+ 2Story	40
+ 2.5Fin	50
+ 2.5Unf	60
+ SFoyer	70
+ SLvl	80
+
+OverallQual= as it is
+OverallCond= as is is
+
+yearBuilt = as it is
+
+YearRemodAdd =  as it is
+
+RoofStyle= it will not affect
+
+RoofMatl: Roof material(think later)
+
+
+Exterior1st - Exterior covering on house (think later)
+
+Exterior2nd - (think later)
+
+MasVnrType: Masonry veneer type
+
+       BrkCmn	Brick Common -1
+       BrkFace	Brick Face -0
+       CBlock	Cinder Block -0
+       None	None -0
+       Stone	Stone -0
+
+MasVnrArea- train["MasVnrArea"].fillna(train["MasVnrArea"].mean())
+
+
+
+
+ExterQual: Evaluates the quality of the material on the exterior 
+		
+       Ex	50
+       Gd	40
+       TA	30
+       Fa	20
+       Po	10
+		
+ExterCond: Evaluates the present condition of the material on the exterior
+		
+       Ex	50
+       Gd	40
+       TA	30
+       Fa	20
+       Po	10
+
+Foundation: Type of foundation(think later)
+		
+       BrkTil	Brick & Tile - 20
+       CBlock	Cinder Block  - 10
+       PConc	Poured Contrete	 - 10
+       Slab	Slab - 10
+       Stone	Stone - 10
+       Wood	Wood - 10
+
+BsmtQual: Evaluates the height of the basement
+
+       Ex	Excellent (100+ inches)	- 25
+       Gd	Good (90-99 inches) - 20
+       TA	Typical (80-89 inches) - 15
+       Fa	Fair (70-79 inches) - 10
+       Po	Poor (<70 inches - 5
+       NA	No Basement - 0
+		
+BsmtCond: Evaluates the general condition of the basement
+
+       Ex	Excellent - 25
+       Gd	Good - 20
+       TA	Typical - slight dampness allowed - 15
+       Fa	Fair - dampness or some cracking or settling - 10
+       Po	Poor - Severe cracking, settling, or wetness - 5
+       NA	No Basement - 0
+
+   
+
+BsmtExposure: Refers to walkout or garden level walls
+
+       Gd	Good Exposure - 4
+       Av	Average Exposure (split levels or foyers typically score average or above) - 3
+       Mn	Mimimum Exposure - 2
+       No	No Exposure - 1
+       NA	No Basement -0
+	
+BsmtFinType1: Rating of basement finished area
+
+       GLQ	Good Living Quarters - 8
+       ALQ	Average Living Quarters - 6
+       BLQ	Below Average Living Quarters - 4	
+       Rec	Average Rec Room - 3
+       LwQ	Low Quality - 2
+       Unf	Unfinshed - 1
+       NA	No Basement - 0
+		
+BsmtFinSF1: Type 1 finished square feet  - as it is 
+
+BsmtFinType2: Rating of basement finished area (if multiple types)
+
+       GLQ	Good Living Quarters - 8
+       ALQ	Average Living Quarters - 6
+       BLQ	Below Average Living Quarters - 4	
+       Rec	Average Rec Room - 3
+       LwQ	Low Quality - 2
+       Unf	Unfinshed - 1
+       NA	No Basement - 0
+		  
+BsmtFinSF2: Type 2 finished square feet - as it is 
+
+BsmtUnfSF: Unfinished square feet of basement area - as it is 
+
+TotalBsmtSF: Total square feet of basement area   - as it is    
+
+
+
+Heating: Type of heating - (dont matter)
+		
+       Floor	Floor Furnace
+       GasA	Gas forced warm air furnace
+       GasW	Gas hot water or steam heat
+       Grav	Gravity furnace	
+       OthW	Hot water or steam heat other than gas
+       Wall	Wall furnace
+		
+HeatingQC: Heating quality and condition
+
+       Ex	Excellent - 20
+       Gd	Good - 15
+       TA	Average/Typical - 10
+       Fa	Fair - 5
+       Po	Poor - 1
+		
+CentralAir: Central air conditioning
+
+       N	No - 0
+       Y	Yes - 1
+
+
+Electrical: Electrical system
+
+       SBrkr	Standard Circuit Breakers & Romex - 10
+       FuseA	Fuse Box over 60 AMP and all Romex wiring (Average) - 6	
+       FuseF	60 AMP Fuse Box and mostly Romex wiring (Fair) - 4
+       FuseP	60 AMP Fuse Box and mostly knob & tube wiring (poor) - 2
+       Mix	Mixed -1
+		
+1stFlrSF: First Floor square feet - (as it is)
+ 
+2ndFlrSF: Second floor square feet - (as it is)
+
+LowQualFinSF: Low quality finished square feet (all floors) - (as it is)
+
+GrLivArea: Above grade (ground) living area square feet - (as it is)
+
+BsmtFullBath: Basement full bathrooms - (as it is)
+
+BsmtHalfBath: Basement half bathrooms - (as it is)
+
+FullBath: Full bathrooms above grade - (as it is)
+
+HalfBath: Half baths above grade - (as it is)
+
+Bedroom: Bedrooms above grade (does NOT include basement bedrooms) - (as it is)
+
+Kitchen: Kitchens above grade - (as it is)
+
+KitchenQual: Kitchen quality
+
+       Ex	Excellent - 5
+       Gd	Good - 4
+       TA	Typical/Average - 3
+       Fa	Fair - 2
+       Po	Poor - 1
+       	
+TotRmsAbvGrd: Total rooms above grade (does not include bathrooms) -  (as it is)
+
+
+Functional: Home functionality (Assume typical unless deductions are warranted)
+
+       Typ	Typical Functionality - 50
+       Min1	Minor Deductions 1 - 40
+       Min2	Minor Deductions 2  - 35
+       Mod	Moderate Deductions - 30
+       Maj1	Major Deductions 1  - 25
+       Maj2	Major Deductions 2 - 20
+       Sev	Severely Damaged - 15
+       Sal	Salvage only - 10
+		
+Fireplaces: Number of fireplaces  - (as it is)
+
+FireplaceQu: Fireplace quality
+
+       Ex	Excellent - Exceptional Masonry Fireplace - 15
+       Gd	Good - Masonry Fireplace in main level - 12
+       TA	Average - Prefabricated Fireplace in main living area or Masonry Fireplace in basement - 9
+       Fa	Fair - Prefabricated Fireplace in basement - 6
+       Po	Poor - Ben Franklin Stove - 3
+       NA	No Fireplace  - 0
+		
+GarageType: Garage location(not matter)
+		
+       2Types	More than one type of garage -  2
+       Attchd	Attached to home - 1
+       Basment	Basement Garage - 1
+       BuiltIn	Built-In (Garage part of house - typically has room above garage) - 1
+       CarPort	Car Port - 1
+       Detchd	Detached from home -1
+       NA	No Garage -0
+		
+
+
+GarageYrBlt: Year garage was built (dont matter)
+		
+GarageFinish: Interior finish of the garage
+
+       Fin	Finished - 3
+       RFn	Rough Finished -2	
+       Unf	Unfinished -1 
+       NA	No Garage -0
+		
+GarageCars: Size of garage in car capacity (as it is)
+
+GarageArea: Size of garage in square feet(as it is)(dont matter)
+
+GarageQual: Garage quality
+
+       Ex	Excellent - 5
+       Gd	Good -4
+       TA	Typical/Average -3
+       Fa	Fair -2
+       Po	Poor -1
+       NA	No Garage -0
+		
+GarageCond: Garage condition
+
+       Ex	Excellent - 5
+       Gd	Good -4
+       TA	Typical/Average -3
+       Fa	Fair -2
+       Po	Poor -1
+       NA	No Garage -0
+		
+PavedDrive: Paved driveway
+
+       Y	Paved - 7
+       P	Partial Pavement -5
+       N	Dirt/Gravel - 2
+		
+WoodDeckSF: Wood deck area in square feet-(as it is)
+
+OpenPorchSF: Open porch area in square feet -(as it is)
+
+EnclosedPorch: Enclosed porch area in square feet -(as it is)
+
+3SsnPorch: Three season porch area in square feet -(as it is)
+
+ScreenPorch: Screen porch area in square feet -(as it is)
+
+PoolArea: Pool area in square feet -(as it is)
+
+
+PoolQC: Pool quality
+		
+       Ex	Excellent -4
+       Gd	Good - 3
+       TA	Average/Typical -2
+       Fa	Fair -1
+       NA	No Pool -0
+		
+Fence: Fence quality
+		
+       GdPrv	Good Privacy -4
+       MnPrv	Minimum Privacy -3
+       GdWo	Good Wood -2
+       MnWw	Minimum Wood/Wire -1
+       NA	No Fence - 0
+	
+MiscFeature: Miscellaneous feature not covered in other categories
+		
+       Elev	Elevator -1
+       Gar2	2nd Garage (if not described in garage section) -1
+       Othr	Other -1
+       Shed	Shed (over 100 SF)
+       TenC	Tennis Court -1
+       NA	None -0
+
+
+MiscVal: $Value of miscellaneous feature  - (as it is)
+
+MoSold: Month Sold (MM) - (dont matter)
+
+YrSold: Year Sold (YYYY) - (dont matter)
+
+SaleType: Type of sale (dont matter)
+		
+       WD 	Warranty Deed - Conventional
+       CWD	Warranty Deed - Cash
+       VWD	Warranty Deed - VA Loan
+       New	Home just constructed and sold
+       COD	Court Officer Deed/Estate
+       Con	Contract 15% Down payment regular terms
+       ConLw	Contract Low Down payment and low interest
+       ConLI	Contract Low Interest
+       ConLD	Contract Low Down
+       Oth	Other
+
+SaleCondition: Condition of sale (dont matter)
+
+       Normal	Normal Sale
+       Abnorml	Abnormal Sale -  trade, foreclosure, short sale
+       AdjLand	Adjoining Land Purchase
+       Alloca	Allocation - two linked properties with separate deeds, typically condo with a garage unit	
+       Family	Sale between family members
+       Partial	Home was not completed when last assessed (associated with New Homes)		

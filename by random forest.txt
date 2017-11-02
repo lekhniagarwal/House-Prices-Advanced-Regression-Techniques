@@ -1,0 +1,148 @@
+from sklearn.ensemble import RandomForestClassifier
+import numpy as np
+import pandas as pd
+
+
+dataset= pd.read_csv("G:/technical/python/houseprediction/train.csv")
+
+test= pd.read_csv("G:/technical/python/houseprediction/test.csv")
+
+
+target = dataset["SalePrice"].values
+
+train = dataset
+
+#feature engineering of train
+
+train["MSZoning"] = train["MSZoning"].replace(['A','C (all)','FV','I','RH','RL','RP','RM',None],[40,60,50,20,70,90,100,80,0])
+train["Street"] = train["Street"].replace(['Grvl','Pave',None],[40,20,0])
+train["Alley"] = train["Alley"].replace(['Grvl','Pave',None],[40,20,0])
+train["LotShape"] = train["LotShape"].replace(['Reg','IR1','IR2','IR3',None],[50,40,20,30,0])
+train["LandContour"] = train["LandContour"].replace(['Lvl','Bnk','HLS','Low',None],[40,30,20,10,0])
+train["Utilities"] = train["Utilities"].replace(['AllPub','NoSewr','NoSeWa','ELO',None],[50,40,20,30,50])
+train["LandSlope"] = train["LandSlope"].replace(['Gtl','Mod','Sev',None],[15,10,5,0])
+train["BldgType"] = train["BldgType"].replace(['1Fam', '2fmCon', 'Duplex' , 'TwnhsE' , 'Twnhs',None],[10,20,30,40,50,0])
+train["HouseStyle"] = train["HouseStyle"].replace(['1Story', '1.5Fin',  '1.5Unf', '2Story', '2.5Fin', '2.5Unf', 'SFoyer', 'SLvl',None],[10,20,30,40,50,60,70,80,0])
+train["MasVnrType"] = train["MasVnrType"].replace(['BrkCmn','BrkFace','CBlock','None','Stone',None],[1,0,0,0,0,0])
+train["ExterQual"] = train["ExterQual"].replace(['Ex','Gd','TA','Fa','Po',None],[50,40,30,20,10,0])
+train["ExterCond"] = train["ExterCond"].replace(['Ex','Gd','TA','Fa','Po',None],[50,40,30,20,10,0])
+
+
+train["BsmtQual"] = train["BsmtQual"].replace(['Ex','Gd','TA','Fa','Po',None],[25,20,15,10,5,0])
+train["BsmtCond"] = train["BsmtCond"].replace(['Ex','Gd','TA','Fa','Po',None],[25,20,15,10,5,0])
+train["BsmtExposure"] = train["BsmtExposure"].replace(['Gd','Av','Mn','No',None],[4,3,2,1,0])
+train["BsmtFinType1"] = train["BsmtFinType1"].replace(['GLQ','ALQ','BLQ','Rec','LwQ','Unf',None],[8,6,4,3,2,1,0])
+train["BsmtFinType2"] = train["BsmtFinType2"].replace(['GLQ','ALQ','BLQ','Rec','LwQ','Unf',None],[8,6,4,3,2,1,0])
+train["HeatingQC"] = train["HeatingQC"].replace(['Ex','Gd','TA','Fa','Po',None],[20,15,10,5,1,0])
+train["CentralAir"] = train["CentralAir"].replace(['N','Y',None],[0,1,0])
+train["Electrical"] = train["Electrical"].replace(['SBrkr','FuseA','FuseF','FuseP','Mix',None],[10,6,4,2,1,0])
+train["KitchenQual"] = train["KitchenQual"].replace(['Ex','Gd','TA','Fa','Po',None],[5,4,3,2,1,0])
+train["Functional"] = train["Functional"].replace(['Typ','Min1','Min2','Mod','Maj1','Maj2','Sev','Sal',None],[50,40,35,30,25,20,15,10,0])
+train["FireplaceQu"] = train["FireplaceQu"].replace(['Ex','Gd','TA','Fa','Po',None],[15,12,9,6,3,0])
+train["GarageType"] = train["GarageType"].replace(['2Types','Attchd','Basment','BuiltIn','CarPort','Detchd',None],[2,1,1,1,1,1,0])
+train["GarageFinish"] = train["GarageFinish"].replace(['Fin','RFn','Unf',None],[3,2,1,0])
+train["GarageQual"] = train["GarageQual"].replace(['Ex','Gd','TA','Fa','Po',None],[5,4,3,2,1,0])
+train["GarageCond"] = train["GarageCond"].replace(['Ex','Gd','TA','Fa','Po',None],[5,4,3,2,1,0])
+train["PavedDrive"] = train["PavedDrive"].replace(['Y','P','N',None],[7,5,2,0])
+train["PoolQC"] = train["PoolQC"].replace(['Ex','Gd','TA','Fa',None],[4,3,2,1,0])
+train["Fence"] = train["Fence"].replace(['GdPrv','MnPrv','GdWo','MnWw',None],[4,3,2,1,0])
+train["MiscFeature"] = train["MiscFeature"].replace(['Elev','Gar2','Othr','Shed','TenC',None],[1,1,1,1,1,0])
+
+
+
+# to check null values in numeric columns
+#print(train.describe())
+
+#filling missing values in train
+train["LotFrontage"] = train["LotFrontage"].fillna(train["LotFrontage"].mean())
+train["MasVnrArea"] = train["MasVnrArea"].fillna(train["MasVnrArea"].mean())
+
+
+
+
+
+#feature engineering of test
+
+test["MSZoning"] = test["MSZoning"].replace(['A','C (all)','FV','I','RH','RL','RP','RM',None],[40,60,50,20,70,90,100,80,0])
+test["Street"] = test["Street"].replace(['Grvl','Pave',None],[40,20,0])
+test["Alley"] = test["Alley"].replace(['Grvl','Pave',None],[40,20,0])
+test["LotShape"] = test["LotShape"].replace(['Reg','IR1','IR2','IR3',None],[50,40,20,30,0])
+test["LandContour"] = test["LandContour"].replace(['Lvl','Bnk','HLS','Low',None],[40,20,30,10,0])
+test["Utilities"] = test["Utilities"].replace(['AllPub','NoSewr','NoSeWa','ELO',None],[50,40,20,30,50])
+test["LandSlope"] = test["LandSlope"].replace(['Gtl','Mod','Sev',None],[15,10,5,0])
+test["BldgType"] = test["BldgType"].replace(['1Fam', '2fmCon', 'Duplex' , 'TwnhsE' , 'Twnhs',None],[10,20,30,40,50,0])
+test["HouseStyle"] = test["HouseStyle"].replace(['1Story', '1.5Fin',  '1.5Unf', '2Story', '2.5Fin', '2.5Unf', 'SFoyer', 'SLvl',None],[10,20,30,40,50,60,70,80,0])
+test["MasVnrType"] = test["MasVnrType"].replace(['BrkCmn','BrkFace','CBlock','None','Stone',None],[1,0,0,0,0,0])
+test["ExterQual"] = test["ExterQual"].replace(['Ex','Gd','TA','Fa','Po',None],[50,40,30,20,10,0])
+test["ExterCond"] = test["ExterCond"].replace(['Ex','Gd','TA','Fa','Po',None],[50,40,30,20,10,0])
+
+test["BsmtQual"] = test["BsmtQual"].replace(['Ex','Gd','TA','Fa','Po',None],[25,20,15,10,5,0])
+test["BsmtCond"] = test["BsmtCond"].replace(['Ex','Gd','TA','Fa','Po',None],[25,20,15,10,5,0])
+test["BsmtExposure"] = test["BsmtExposure"].replace(['Gd','Av','Mn','No',None],[4,3,2,1,0])
+test["BsmtFinType1"] = test["BsmtFinType1"].replace(['GLQ','ALQ','BLQ','Rec','LwQ','Unf',None],[8,6,4,3,2,1,0])
+test["BsmtFinType2"] = test["BsmtFinType2"].replace(['GLQ','ALQ','BLQ','Rec','LwQ','Unf',None],[8,6,4,3,2,1,0])
+test["HeatingQC"] = test["HeatingQC"].replace(['Ex','Gd','TA','Fa','Po',None],[20,15,10,5,1,0])
+test["CentralAir"] = test["CentralAir"].replace(['N','Y',None],[0,1,0])
+test["Electrical"] = test["Electrical"].replace(['SBrkr','FuseA','FuseF','FuseP','Mix',None],[10,6,4,2,1,0])
+test["KitchenQual"] = test["KitchenQual"].replace(['Ex','Gd','TA','Fa','Po',None],[5,4,3,2,1,0])
+test["Functional"] = test["Functional"].replace(['Typ','Min1','Min2','Mod','Maj1','Maj2','Sev','Sal',None],[50,40,35,30,25,20,15,10,0])
+test["FireplaceQu"] = test["FireplaceQu"].replace(['Ex','Gd','TA','Fa','Po',None],[15,12,9,6,3,0])
+test["GarageType"] = test["GarageType"].replace(['2Types','Attchd','Basment','BuiltIn','CarPort','Detchd',None],[2,1,1,1,1,1,0])
+test["GarageFinish"] = test["GarageFinish"].replace(['Fin','RFn','Unf',None],[3,2,1,0])
+test["GarageQual"] = test["GarageQual"].replace(['Ex','Gd','TA','Fa','Po',None],[5,4,3,2,1,0])
+test["GarageCond"] = test["GarageCond"].replace(['Ex','Gd','TA','Fa','Po',None],[5,4,3,2,1,0])
+test["PavedDrive"] = test["PavedDrive"].replace(['Y','P','N',None],[7,5,2,0])
+test["PoolQC"] = test["PoolQC"].replace(['Ex','Gd','TA','Fa',None],[4,3,2,1,0])
+test["Fence"] = test["Fence"].replace(['GdPrv','MnPrv','GdWo','MnWw',None],[4,3,2,1,0])
+test["MiscFeature"] = test["MiscFeature"].replace(['Elev','Gar2','Othr','Shed','TenC',None],[1,1,1,1,1,0])
+
+# to check null values in numeric columns
+#print(test.describe())
+
+
+#filling missing values in test
+test["LotFrontage"] = test["LotFrontage"].fillna(test["LotFrontage"].mean())
+test["MasVnrArea"] = test["MasVnrArea"].fillna(test["MasVnrArea"].mean())
+test["BsmtFinSF1"] = test["BsmtFinSF1"].fillna(test["BsmtFinSF1"].mean())
+test["BsmtFinSF2"] = test["BsmtFinSF2"].fillna(test["BsmtFinSF2"].mean())
+test["GarageCars"] = test["GarageCars"].fillna(test["GarageCars"].mean())
+test["GarageArea"] = test["GarageArea"].fillna(test["GarageArea"].mean())
+
+
+
+test["BsmtFullBath"] = test["BsmtFullBath"].fillna(test["BsmtFullBath"].mean())
+test["BsmtHalfBath"] = test["BsmtHalfBath"].fillna(test["BsmtHalfBath"].mean())
+test["BsmtUnfSF"] = test["BsmtUnfSF"].fillna(test["BsmtUnfSF"].mean())
+test["TotalBsmtSF"] = test["TotalBsmtSF"].fillna(test["TotalBsmtSF"].mean())
+
+
+
+
+
+#drop some redundant columns
+train.drop(["Id","LotConfig","Neighborhood","Condition1","Condition2","RoofStyle","RoofMatl","Foundation","Exterior1st","Exterior2nd","Heating","GarageYrBlt","GarageArea","MoSold","YrSold","SaleType","SaleCondition","SalePrice"], axis=1, inplace=True)
+
+test.drop(["Id","LotConfig","Neighborhood","Condition1","Condition2" ,"RoofStyle","RoofMatl","Foundation","Exterior1st","Exterior2nd","Heating","GarageYrBlt","GarageArea","MoSold","YrSold","SaleCondition","SaleType"], axis=1, inplace=True)
+
+
+            
+            
+
+        
+        
+model = RandomForestClassifier(n_estimators=100)
+model.fit(train, target)
+prediction = model.predict(test)
+
+
+
+
+user_Id =np.arange(1461,2920).astype(int)
+my_solution = pd.DataFrame({'Id':user_Id ,'SalePrice':prediction})
+
+
+
+
+
+# Write your solution i.e my solution datframe to a csv file with the name randomforest.csv and it will save in location given
+my_solution.to_csv("G:/technical/python/houseprediction/randomforest.csv", index = False)
